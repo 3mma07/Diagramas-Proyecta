@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCO-PRO-003 · Participación en Concursos de Proyectos HVAC · Proyecta³</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f5f5f3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 32px 16px 48px; }
+  .page-header { width: 100%; max-width: 980px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  .logo-text { font-size: 22px; font-weight: 700; color: #808285; letter-spacing: .02em; }
+  .logo-text sup { color: #E8732A; font-size: 14px; }
+  .doc-meta { text-align: right; }
+  .doc-meta .doc-code { font-size: 13px; font-weight: 700; color: #E8732A; }
+  .doc-meta .doc-ver  { font-size: 11px; color: #999; margin-top: 2px; }
+  .wrap { background: #1a1a1a; border-radius: 18px; padding: 30px 24px 34px; width: 100%; max-width: 980px; overflow-x: auto; }
+  .title-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+  .title-bar h2 { color: #d0d0d0; font-size: 13px; font-weight: 600; letter-spacing: .05em; opacity: .85; }
+  .title-bar .badge { background: #2a2218; color: #E8732A; font-size: 11px; padding: 2px 9px; border-radius: 20px; border: 0.5px solid #E8732A55; white-space: nowrap; }
+  .hint { font-size: 11px; color: #505050; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 168px); gap: 0 9px; min-width: 880px; }
+  .col-head { text-align: center; margin-bottom: 14px; padding: 8px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+  .ch1 { background: #2e1e0e; color: #E8732A;  border: 0.5px solid #E8732A66; }
+  .ch2 { background: #282828; color: #c8c8c8;  border: 0.5px solid #80828588; }
+  .ch3 { background: #1e1010; color: #e08888;  border: 0.5px solid #58282888; }
+  .ch4 { background: #201a0a; color: #d09060;  border: 0.5px solid #80582888; }
+  .ch5 { background: #0e1e28; color: #70b8d8;  border: 0.5px solid #20485888; }
+  .col { display: flex; flex-direction: column; align-items: center; }
+  .card { width: 160px; border-radius: 10px; padding: 10px 12px; cursor: default; border: 0.5px solid transparent; transition: transform .15s, box-shadow .15s; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,.5); }
+  .card .num   { font-size: 10px; font-weight: 700; margin-bottom: 3px; opacity: .7; }
+  .card .label { font-size: 12px; font-weight: 700; line-height: 1.3; }
+  .card .sub   { font-size: 11px; margin-top: 4px; line-height: 1.3; opacity: .75; }
+  .c-orange { background: #2e1a08; color: #f0975a; border-color: #E8732A55; }
+  .c-orange .num { color: #E8732A; }
+  .c-gray1  { background: #272727; color: #c8c8c8; border-color: #50505088; }
+  .c-gray1  .num { color: #909090; }
+  .c-dir    { background: #280e0e; color: #e08888; border-color: #58202088; }
+  .c-dir    .num { color: #c06060; }
+  .c-warm   { background: #261c08; color: #c89858; border-color: #80581888; }
+  .c-warm   .num { color: #b07830; }
+  .c-blue   { background: #0e1e28; color: #70b8d8; border-color: #20485888; }
+  .c-blue   .num { color: #4898b8; }
+  .c-red    { background: #280e0e; color: #e08080; border-color: #58202088; }
+  .c-red    .num { color: #c06060; }
+  .c-end    { background: #0e2218; color: #70c890; border-color: #205838; }
+  .c-end    .num { color: #50a870; }
+  .arrow-down { width: 1.5px; height: 16px; background: #404040; margin: 0 auto; position: relative; }
+  .arrow-down::after { content:''; position:absolute; bottom:-5px; left:-4px; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #404040; }
+  .arrow-skip { width: 1.5px; height: 10px; background: #333; margin: 0 auto; }
+  .spacer { height: 26px; }
+  .empty  { width: 160px; }
+  .diamond-wrap { display: flex; flex-direction: column; align-items: center; width: 160px; }
+  .diamond { width: 60px; height: 60px; background: #2a1a06; border: 1.5px solid #E8732A; transform: rotate(45deg); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: default; transition: box-shadow .15s; }
+  .diamond:hover { box-shadow: 0 0 14px #E8732A44; }
+  .diamond-inner { transform: rotate(-45deg); font-size: 9px; color: #f0975a; text-align: center; font-weight: 700; line-height: 1.2; padding: 2px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; align-items: center; }
+  .leg { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #707070; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .leg-dia { width: 10px; height: 10px; transform: rotate(45deg); border-radius: 2px; background: #2a1a06; border: 1.5px solid #E8732A; flex-shrink: 0; }
+  .logo-mark { font-size: 11px; color: #404040; margin-left: auto; letter-spacing: .08em; font-weight: 600; }
+  .tooltip { display:none; position:fixed; background:#111; color:#e8e8e8; font-size:12px; border-radius:8px; padding:10px 14px; max-width:250px; line-height:1.6; border:0.5px solid #E8732A44; z-index:9999; box-shadow:0 8px 24px rgba(0,0,0,.7); pointer-events:none; }
+  .tooltip.show { display:block; }
+  .page-footer { width: 100%; max-width: 980px; margin-top: 20px; display: flex; justify-content: space-between; }
+  .page-footer span { font-size: 11px; color: #aaa; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <svg style="width:28px;height:24px;margin-right:8px;vertical-align:middle" viewBox="0 0 40 34" fill="none">
+      <polygon points="4,30 20,4 36,30" fill="none" stroke="#808285" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="20" cy="25" r="3" fill="#E8732A"/>
+      <line x1="20" y1="25" x2="9" y2="25" stroke="#E8732A" stroke-width="2"/>
+    </svg>
+    <span class="logo-text">PROYECT<span style="color:#E8732A">A</span><sup>3</sup></span>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-code">TCO-PRO-003</div>
+    <div class="doc-ver">Versión 1 · 24/03/2026 · Emmanuel Ramírez</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="title-bar">
+    <h2>PARTICIPACIÓN EN CONCURSOS DE PROYECTOS HVAC — DIAGRAMA DE FLUJO</h2>
+    <span class="badge">Gestión Técnico-Comercial</span>
+  </div>
+  <div class="hint">Pasa el cursor sobre cada tarjeta o decisión para ver el detalle de la actividad</div>
+
+  <div class="grid">
+    <div class="col-head ch1">CLIENTE</div>
+    <div class="col-head ch2">GERENTE COMERCIAL</div>
+    <div class="col-head ch3">DIRECTOR GENERAL</div>
+    <div class="col-head ch4">ADMIN FACTURACIÓN</div>
+    <div class="col-head ch5">GER. OPERATIVO / ADMIN</div>
+
+    <!-- 01 -->
+    <div class="col">
+      <div class="card c-orange" onmouseenter="tip(event,'Emite invitación formal por correo o publica el concurso en plataforma. Incluye bases con especificaciones técnicas, requisitos administrativos, criterios de evaluación, calendario y condiciones comerciales.')" onmouseleave="ht()">
+        <div class="num">01</div><div class="label">Emite invitación</div><div class="sub">Bases del concurso</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Recibe la invitación formal o identifica la publicación del concurso. Revisa las bases para evaluar viabilidad de participación según plazo, requisitos y alcance del proyecto.')" onmouseleave="ht()">
+        <div class="num">01</div><div class="label">Recibe y evalúa bases</div><div class="sub">Viabilidad de participación</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- DEC 1: estratégico? -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'Si el proyecto es estratégico o de alto valor, el Director General debe aprobar la participación antes de continuar. Si no es estratégico, el Gerente Comercial decide directamente.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Proyecto estratégico?</div>
+        </div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col">
+      <div class="card c-dir" onmouseenter="tip(event,'Para proyectos estratégicos o de alto valor, el Director General revisa la oportunidad y aprueba o rechaza la participación de Proyecta en el concurso.')" onmouseleave="ht()">
+        <div class="num">02</div><div class="label">Aprueba participación</div><div class="sub">Proyectos de alto valor</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- DEC 2: participar? -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'Se decide si Proyecta participará en el concurso. Si no se participa, se archiva la información y concluye el procedimiento.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Se decide participar?</div>
+        </div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- No participa -->
+    <div class="col"><div class="empty"></div></div>
+    <div class="col"><div class="empty"></div></div>
+    <div class="col">
+      <div class="card c-red" onmouseenter="tip(event,'Se decide no participar en el concurso. Se archiva la información del concurso. Fin del procedimiento.')" onmouseleave="ht()">
+        <div class="num">—</div><div class="label">No participa</div><div class="sub">Archiva → fin</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 03 registra -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Registra el concurso en el CRM y asigna folio de cotización en el control de presupuesto.')" onmouseleave="ht()">
+        <div class="num">03</div><div class="label">Registra concurso</div><div class="sub">CRM + folio cotización</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 04 revisión técnica -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Revisa planos arquitectónicos y especificaciones técnicas de las bases. NOTA: No se realiza cálculo de cargas térmicas ni selección de equipos — ya vienen definidos por el cliente. Si hay inconsistencias, valida con el cliente.')" onmouseleave="ht()">
+        <div class="num">04</div><div class="label">Revisión técnica</div><div class="sub">Planos y especificaciones</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 05 precio -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Calcula el precio de venta con base en el histórico de proyectos similares, desglose de equipos requeridos, insumos, mano de obra y análisis de la documentación del cliente. Revisa el precio con el Director General para su autorización.')" onmouseleave="ht()">
+        <div class="num">05</div><div class="label">Calcula precio</div><div class="sub">Histórico + análisis</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col">
+      <div class="card c-dir" onmouseenter="tip(event,'Revisa el precio de venta calculado por el Gerente Comercial y lo autoriza antes de proceder con la propuesta formal.')" onmouseleave="ht()">
+        <div class="num">05</div><div class="label">Autoriza precio</div><div class="sub">Revisión y aprobación</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 06 catálogo -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Llena el catálogo de conceptos del cliente aplicando margen de utilidad según estrategia comercial. Genera el plan de ejecución: cronograma, metodología de instalación, recursos asignados, programa de calidad y otros requisitos de las bases.')" onmouseleave="ht()">
+        <div class="num">06</div><div class="label">Llena catálogo y plan</div><div class="sub">Margen + plan ejecución</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 07 envía propuesta -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Verifica el cumplimiento de todos los requisitos de las bases con el contacto del concurso. Envía la propuesta técnica y comercial completa dentro del plazo establecido.')" onmouseleave="ht()">
+        <div class="num">07</div><div class="label">Verifica y envía propuesta</div><div class="sub">Cumplimiento de bases</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 08 seguimiento -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Espera la comunicación oficial del resultado según el calendario establecido en las bases del concurso.')" onmouseleave="ht()">
+        <div class="num">08</div><div class="label">Seguimiento</div><div class="sub">Espera resultado oficial</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- DEC 3: ganado? -->
+    <div class="col">
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'El cliente anuncia el resultado del concurso. Si Proyecta gana, continúa el proceso. Si pierde, el Gerente Comercial registra la venta como &quot;Perdida&quot; en CRM, documenta el motivo y archiva. Fin del procedimiento.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Proyecta gana el concurso?</div>
+        </div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- Pierde -->
+    <div class="col"><div class="empty"></div></div>
+    <div class="col">
+      <div class="card c-red" onmouseenter="tip(event,'Registra la venta como &quot;Perdida&quot; en CRM. Documenta el motivo de rechazo y archiva la información del concurso. Se da por concluido el procedimiento.')" onmouseleave="ht()">
+        <div class="num">—</div><div class="label">Registra venta perdida</div><div class="sub">CRM → fin</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 09 confirma venta -->
+    <div class="col">
+      <div class="card c-orange" onmouseenter="tip(event,'Anuncia a Proyecta como ganador del concurso. Comparte orden de compra y solicita datos para pagar el anticipo.')" onmouseleave="ht()">
+        <div class="num">09</div><div class="label">Anuncia ganador</div><div class="sub">Orden de compra</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Registra la venta como &quot;Ganada&quot; en CRM. Solicita al Administrador de Facturación el cobro del anticipo compartiendo datos del cliente, monto y datos de facturación.')" onmouseleave="ht()">
+        <div class="num">09</div><div class="label">Confirma venta ganada</div><div class="sub">CRM → solicita anticipo</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-warm" onmouseenter="tip(event,'Gestiona el cobro del anticipo con base en los datos compartidos por el Gerente Comercial: datos del cliente, monto del anticipo y datos de facturación.')" onmouseleave="ht()">
+        <div class="num">09</div><div class="label">Gestiona anticipo</div><div class="sub">Confirma cobro</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 10 paquete -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Prepara el paquete completo: TCO-FOR-001 Presupuesto (equipos HVAC con marca, modelo y capacidad), TCO-FOR-002 Desglose de Insumos (materiales y accesorios), TCO-FOR-003 Catálogo de Mano de Obra y TCO-FOR-005 Ficha Técnico-Comercial.')" onmouseleave="ht()">
+        <div class="num">10</div><div class="label">Prepara paquete</div><div class="sub">FOR-001/002/003/005</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 11 comparte -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Una vez confirmado el cobro del anticipo, comparte con el Gerente Operativo y Gerente Administrativo: FOR-001 Presupuesto, FOR-002 Desglose de Insumos, FOR-003 Catálogo de Mano de Obra y FOR-005 Ficha Técnico-Comercial.')" onmouseleave="ht()">
+        <div class="num">11</div><div class="label">Comparte información</div><div class="sub">Operativo + Administrativo</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-blue" onmouseenter="tip(event,'Gerente Operativo y Gerente Administrativo confirman la recepción de toda la información. Si se requiere acompañamiento al sitio, el Gerente Operativo lo solicita al Gerente Comercial.')" onmouseleave="ht()">
+        <div class="num">11</div><div class="label">Confirman recepción</div><div class="sub">Aclaran detalles</div>
+      </div><div class="arrow-down"></div>
+    </div>
+
+    <!-- FIN -->
+    <div class="col"><div class="empty"></div></div>
+    <div class="col">
+      <div class="card c-end" onmouseenter="tip(event,'El Gerente Operativo y Gerente Administrativo han recibido y confirmado toda la información del proyecto. Concluye el procedimiento TCO-PRO-003.')" onmouseleave="ht()">
+        <div class="num">12</div><div class="label">Proyecto entregado</div><div class="sub">Fin del procedimiento</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-end" onmouseenter="tip(event,'Una vez aclarados todos los detalles del proyecto entre el Gerente Operativo, Gerente Administrativo y Gerente Comercial, se da por terminado el presente procedimiento.')" onmouseleave="ht()">
+        <div class="num">12</div><div class="label">Detalles aclarados</div><div class="sub">Fin del procedimiento</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:#E8732A"></div>Cliente</div>
+    <div class="leg"><div class="leg-dot" style="background:#808285"></div>Gerente Comercial</div>
+    <div class="leg"><div class="leg-dot" style="background:#c06060"></div>Director General</div>
+    <div class="leg"><div class="leg-dot" style="background:#b07830"></div>Admin Facturación</div>
+    <div class="leg"><div class="leg-dot" style="background:#4898b8"></div>Ger. Operativo / Admin</div>
+    <div class="leg"><div class="leg-dia"></div>Decisión</div>
+    <div class="leg"><div class="leg-dot" style="background:#e08080"></div>Fin alterno</div>
+    <div class="leg"><div class="leg-dot" style="background:#50a870"></div>Fin exitoso</div>
+    <div class="logo-mark">PROYECTA³</div>
+  </div>
+</div>
+
+<div class="page-footer">
+  <span>TCO-PRO-003 · Gestión Técnico-Comercial · Proyecta³</span>
+  <span>v1 · 24/03/2026</span>
+</div>
+
+<div class="tooltip" id="tt"></div>
+<script>
+  function tip(e, text) {
+    const t = document.getElementById('tt');
+    t.innerHTML = text;
+    t.classList.add('show');
+    mv(e);
+    document.addEventListener('mousemove', mv);
+  }
+  function mv(e) {
+    const t = document.getElementById('tt');
+    let x = e.clientX + 14, y = e.clientY - 10;
+    if (x + 265 > window.innerWidth) x = e.clientX - 265;
+    if (y + 110 > window.innerHeight) y = e.clientY - 110;
+    t.style.left = x + 'px'; t.style.top = y + 'px';
+  }
+  function ht() {
+    const t = document.getElementById('tt');
+    t.classList.remove('show');
+    document.removeEventListener('mousemove', mv);
+  }
+</script>
+</body>
+</html>
