@@ -1,0 +1,285 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .wrap { background: #1a1a1a; border-radius: 16px; padding: 28px 20px 32px; font-family: var(--font-sans, sans-serif); overflow-x: auto; min-width: 340px; }
+  .title-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+  .title-bar h2 { color: #d0d0d0; font-size: 13px; font-weight: 600; letter-spacing: .05em; opacity: .85; }
+  .title-bar .badge { background: #2a2218; color: #E8732A; font-size: 11px; padding: 2px 9px; border-radius: 20px; border: 0.5px solid #E8732A55; white-space: nowrap; }
+  .hint { font-size: 11px; color: #505050; margin-bottom: 22px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 160px); gap: 0 8px; min-width: 860px; }
+  .col-head { text-align: center; margin-bottom: 14px; padding: 7px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+  .ch1 { background: #2e1e0e; color: #E8732A;  border: 0.5px solid #E8732A66; }
+  .ch2 { background: #282828; color: #c8c8c8;  border: 0.5px solid #80828588; }
+  .ch3 { background: #222222; color: #a8a8a8;  border: 0.5px solid #60606088; }
+  .ch4 { background: #201a0a; color: #d09060;  border: 0.5px solid #80582888; }
+  .ch5 { background: #0e1e28; color: #70b8d8;  border: 0.5px solid #204858; }
+  .col { display: flex; flex-direction: column; align-items: center; }
+  .card { width: 152px; border-radius: 10px; padding: 9px 11px; cursor: default; border: 0.5px solid transparent; transition: transform .15s, box-shadow .15s; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,.5); }
+  .card .num   { font-size: 10px; font-weight: 700; margin-bottom: 3px; opacity: .7; }
+  .card .label { font-size: 12px; font-weight: 700; line-height: 1.3; }
+  .card .sub   { font-size: 11px; margin-top: 4px; line-height: 1.3; opacity: .75; }
+  .c-orange { background: #2e1a08; color: #f0975a; border-color: #E8732A55; }
+  .c-orange .num { color: #E8732A; }
+  .c-gray1  { background: #272727; color: #c8c8c8; border-color: #50505088; }
+  .c-gray1  .num { color: #909090; }
+  .c-gray2  { background: #202020; color: #b0b0b0; border-color: #40404088; }
+  .c-gray2  .num { color: #787878; }
+  .c-warm   { background: #261c08; color: #c89858; border-color: #80581888; }
+  .c-warm   .num { color: #b07830; }
+  .c-blue   { background: #0e1e28; color: #70b8d8; border-color: #20485888; }
+  .c-blue   .num { color: #4898b8; }
+  .c-red    { background: #280e0e; color: #e08080; border-color: #58202088; }
+  .c-red    .num { color: #c06060; }
+  .c-end    { background: #0e2218; color: #70c890; border-color: #205838; }
+  .c-end    .num { color: #50a870; }
+  .arrow-down { width: 1.5px; height: 16px; background: #404040; margin: 0 auto; position: relative; }
+  .arrow-down::after { content:''; position:absolute; bottom:-5px; left:-4px; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #404040; }
+  .arrow-skip { width: 1.5px; height: 10px; background: #333; margin: 0 auto; }
+  .spacer    { height: 26px; }
+  .spacer-sm { height: 14px; }
+  .empty     { width: 152px; }
+  .diamond-wrap { display: flex; flex-direction: column; align-items: center; width: 152px; }
+  .diamond { width: 58px; height: 58px; background: #2a1a06; border: 1.5px solid #E8732A; transform: rotate(45deg); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: default; transition: box-shadow .15s; }
+  .diamond:hover { box-shadow: 0 0 14px #E8732A44; }
+  .diamond-inner { transform: rotate(-45deg); font-size: 9px; color: #f0975a; text-align: center; font-weight: 700; line-height: 1.2; padding: 2px; }
+  .label-note { font-size: 10px; color: #505050; text-align: center; margin-top: 3px; font-style: italic; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; align-items: center; }
+  .leg { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #707070; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .leg-dia { width: 10px; height: 10px; transform: rotate(45deg); border-radius: 2px; background: #2a1a06; border: 1.5px solid #E8732A; flex-shrink: 0; }
+  .logo-mark { font-size: 11px; color: #404040; margin-left: auto; letter-spacing: .08em; font-weight: 600; }
+  .tooltip { display:none; position:fixed; background:#111; color:#e8e8e8; font-size:12px; border-radius:8px; padding:10px 14px; max-width:250px; line-height:1.6; border:0.5px solid #E8732A44; z-index:9999; box-shadow:0 8px 24px rgba(0,0,0,.7); pointer-events:none; }
+  .tooltip.show { display:block; }
+</style>
+
+<div class="wrap">
+  <div class="title-bar">
+    <h2>TCO-PRO-002 · VENTA DE PROYECTOS DE INSTALACIÓN HVAC</h2>
+    <span class="badge">Versión 1 · 24/03/2026</span>
+  </div>
+  <div class="hint">Pasa el cursor sobre cada tarjeta o decisión para ver el detalle</div>
+
+  <div class="grid">
+    <div class="col-head ch1">CLIENTE</div>
+    <div class="col-head ch2">GERENTE COMERCIAL</div>
+    <div class="col-head ch3">JEFE DE INGENIERÍA</div>
+    <div class="col-head ch4">ADMIN FAC. / DIRECTOR</div>
+    <div class="col-head ch5">GER. OPERATIVO / ADMIN</div>
+
+    <!-- 01 -->
+    <div class="col">
+      <div class="card c-orange" onmouseenter="tip(event,'Solicita el proyecto de instalación HVAC a través de llamada, correo, visita directa o canalización de Dirección General.')" onmouseleave="ht()">
+        <div class="num">01</div><div class="label">Solicita proyecto</div><div class="sub">Solicitud directa</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Registra la solicitud en el CRM, asigna folio de cotización en el control de presupuesto y confirma recepción al cliente.')" onmouseleave="ht()">
+        <div class="num">01</div><div class="label">Recibe y registra</div><div class="sub">CRM + folio cotización</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- DEC 1: ¿Tiene ingeniería? -->
+    <div class="col">
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'El cliente debe proporcionar la ingeniería HVAC: planos, estudio de cargas térmicas y condiciones de infraestructura. Si no cuenta con ella, el Gerente Comercial ofrece dos opciones.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Cliente tiene ingeniería?</div>
+        </div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- Sin ingeniería -->
+    <div class="col"><div class="empty"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Si el cliente no tiene ingeniería, el Gerente Comercial ofrece: (1) Sin costo adicional si confirma que Proyecta ejecuta la instalación completa. (2) Como servicio independiente cobrado según TCO-PRO-001.')" onmouseleave="ht()">
+        <div class="num">02</div><div class="label">Ofrece ingeniería</div><div class="sub">TCO-PRO-001 o incluida</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 03 -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Establece el precio de venta con base en la ingeniería HVAC proporcionada, el histórico de proyectos similares y el desglose de equipos requeridos.')" onmouseleave="ht()">
+        <div class="num">03</div><div class="label">Calcula precio de venta</div><div class="sub">Histórico + ingeniería</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 04 -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Elabora TCO-FOR-001 Presupuesto con: datos del cliente y proyecto, alcance, desglose de conceptos, tiempo de ejecución, condiciones comerciales (pago, anticipo, vigencia, garantías) y exclusiones. Lo envía al cliente por correo.')" onmouseleave="ht()">
+        <div class="num">04</div><div class="label">Elabora y envía cotización</div><div class="sub">TCO-FOR-001 → cliente</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 05 seguimiento -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Da seguimiento al cliente: solicita fecha estimada de respuesta, aclara dudas y realiza ajustes técnicos o comerciales. Si hay ajustes que modifican el alcance, actualiza Presupuesto, Desglose de Insumos y Catálogo de Mano de Obra.')" onmouseleave="ht()">
+        <div class="num">05</div><div class="label">Seguimiento y ajustes</div><div class="sub">Técnicos y comerciales</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- DEC 2: ¿Acepta? -->
+    <div class="col">
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'El cliente decide si acepta o rechaza la propuesta. Si la rechaza, se registra la venta como &quot;Perdida&quot; en CRM, se documenta el motivo y se archiva. Fin del procedimiento.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Cliente acepta propuesta?</div>
+        </div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- No acepta -->
+    <div class="col"><div class="empty"></div></div>
+    <div class="col">
+      <div class="card c-red" onmouseenter="tip(event,'Registra la venta como &quot;Perdida&quot; en CRM. Documenta el motivo de rechazo y archiva la información del proyecto. Se da por concluido el procedimiento.')" onmouseleave="ht()">
+        <div class="num">—</div><div class="label">Registra venta perdida</div><div class="sub">CRM → fin</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 06 confirma venta -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Registra la venta como &quot;Ganada&quot; en CRM. Solicita al Admin Facturación el cobro del anticipo compartiendo datos del cliente, monto y datos de facturación por correo. NOTA: si se requiere descuento o proceder sin anticipo, requiere autorización del Director General.')" onmouseleave="ht()">
+        <div class="num">06</div><div class="label">Confirma venta</div><div class="sub">CRM → "Ganada"</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-warm" onmouseenter="tip(event,'Gestiona el cobro del anticipo con base en los datos compartidos por el Gerente Comercial. NOTA: si se solicita descuento o proceder sin anticipo, el Director General debe autorizar.')" onmouseleave="ht()">
+        <div class="num">06</div><div class="label">Gestiona anticipo</div><div class="sub">Confirma cobro</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 07 planos CAD -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Solicita al Jefe de Ingeniería precisar los planos en software CAD y elaborar el Estudio de Cargas Térmicas (TCO-FOR-004). Envía los planos al cliente para confirmación final del sistema de distribución HVAC.')" onmouseleave="ht()">
+        <div class="num">07</div><div class="label">Solicita planos CAD</div><div class="sub">Envía a cliente</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col">
+      <div class="card c-gray2" onmouseenter="tip(event,'Elabora los planos precisos en AutoCAD y el TCO-FOR-004 Estudio de Cargas Térmicas. NOTA: Los cambios en ingeniería solo aplican para planos realizados por Proyecta.')" onmouseleave="ht()">
+        <div class="num">07</div><div class="label">Genera planos CAD</div><div class="sub">TCO-FOR-004</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- DEC 3: ajustes planos -->
+    <div class="col">
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'El cliente revisa los planos CAD. Si solicita ajustes, el Jefe de Ingeniería los realiza y el Gerente Comercial actualiza el presupuesto si hay impacto en costos.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Ajustes en planos?</div>
+        </div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
+    <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 08 paquete entrega -->
+    <div class="col"><div class="empty"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Prepara el paquete completo del proyecto: TCO-FOR-001 Presupuesto (equipos HVAC), TCO-FOR-002 Desglose de Insumos (materiales, ductos, accesorios), TCO-FOR-003 Catálogo de Mano de Obra (instalación, puesta en marcha, capacitación) y TCO-FOR-005 Ficha Técnico-Comercial.')" onmouseleave="ht()">
+        <div class="num">08</div><div class="label">Prepara paquete</div><div class="sub">FOR-001/002/003/005</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- 09 entrega -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Comparte al Gerente Operativo: FOR-002, FOR-003, Planos y FOR-005. Comparte al Gerente Administrativo: FOR-001, FOR-002, FOR-003 y FOR-005.')" onmouseleave="ht()">
+        <div class="num">09</div><div class="label">Comparte información</div><div class="sub">Operativo + Administrativo</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-blue" onmouseenter="tip(event,'Gerente Operativo y Gerente Administrativo confirman la recepción de toda la información. Si se requiere acompañamiento al sitio, el Gerente Operativo lo solicita al Gerente Comercial. Una vez aclarados todos los detalles, concluye el procedimiento.')" onmouseleave="ht()">
+        <div class="num">09</div><div class="label">Confirman recepción</div><div class="sub">Aclaran detalles</div>
+      </div><div class="arrow-down"></div>
+    </div>
+
+    <!-- FIN -->
+    <div class="col"><div class="empty"></div></div>
+    <div class="col">
+      <div class="card c-end" onmouseenter="tip(event,'Gerente Operativo y Gerente Administrativo han recibido y confirmado toda la información del proyecto. Concluye el procedimiento TCO-PRO-002.')" onmouseleave="ht()">
+        <div class="num">10</div><div class="label">Proyecto entregado</div><div class="sub">Fin del procedimiento</div>
+      </div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-end" onmouseenter="tip(event,'Una vez que ambos gerentes han aclarado todos los detalles del proyecto con el Gerente Comercial, se da por terminado el presente procedimiento.')" onmouseleave="ht()">
+        <div class="num">10</div><div class="label">Detalles aclarados</div><div class="sub">Fin del procedimiento</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:#E8732A"></div>Cliente</div>
+    <div class="leg"><div class="leg-dot" style="background:#808285"></div>Gerente Comercial</div>
+    <div class="leg"><div class="leg-dot" style="background:#606060"></div>Jefe de Ingeniería</div>
+    <div class="leg"><div class="leg-dot" style="background:#b07830"></div>Admin Fac. / Director</div>
+    <div class="leg"><div class="leg-dot" style="background:#4898b8"></div>Ger. Operativo / Admin</div>
+    <div class="leg"><div class="leg-dia"></div>Decisión</div>
+    <div class="leg"><div class="leg-dot" style="background:#e08080;border-radius:3px"></div>Fin alterno</div>
+    <div class="leg"><div class="leg-dot" style="background:#50a870;border-radius:3px"></div>Fin exitoso</div>
+    <div class="logo-mark">PROYECTA³</div>
+  </div>
+</div>
+
+<div class="tooltip" id="tt"></div>
+<script>
+  function tip(e, text) {
+    const t = document.getElementById('tt');
+    t.innerHTML = text;
+    t.classList.add('show');
+    mv(e);
+    document.addEventListener('mousemove', mv);
+  }
+  function mv(e) {
+    const t = document.getElementById('tt');
+    let x = e.clientX + 14, y = e.clientY - 10;
+    if (x + 265 > window.innerWidth) x = e.clientX - 265;
+    if (y + 110 > window.innerHeight) y = e.clientY - 110;
+    t.style.left = x + 'px'; t.style.top = y + 'px';
+  }
+  function ht() {
+    const t = document.getElementById('tt');
+    t.classList.remove('show');
+    document.removeEventListener('mousemove', mv);
+  }
+</script>
