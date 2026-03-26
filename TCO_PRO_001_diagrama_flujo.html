@@ -1,309 +1,315 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCO-PRO-001 · Venta de Ingenierías HVAC · Proyecta³</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: transparent; }
-  .wrap { background: #141820; border-radius: 16px; padding: 28px 20px 32px; font-family: var(--font-sans, sans-serif); overflow-x: auto; min-width: 340px; }
-  .title-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
-  .title-bar h2 { color: #e2e8f0; font-size: 13px; font-weight: 500; letter-spacing: .04em; opacity: .7; }
-  .title-bar .badge { background: #1e2d40; color: #60a5fa; font-size: 11px; padding: 2px 8px; border-radius: 20px; border: 0.5px solid #2d4a6e; }
-  .grid { display: grid; grid-template-columns: repeat(4, 180px); gap: 0 12px; min-width: 780px; }
-  .col-head { text-align: center; margin-bottom: 14px; padding: 8px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; letter-spacing: .03em; }
-  .col-head.c1 { background: #1a3a4a; color: #5eead4; border: 0.5px solid #2a5a6a; }
-  .col-head.c2 { background: #2a1f42; color: #a78bfa; border: 0.5px solid #4a3a72; }
-  .col-head.c3 { background: #1a2a1a; color: #86efac; border: 0.5px solid #2a4a2a; }
-  .col-head.c4 { background: #3a2a10; color: #fbbf24; border: 0.5px solid #6a4a20; }
-  .col { display: flex; flex-direction: column; align-items: center; gap: 0; }
-  .card { width: 170px; border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: transform .15s, box-shadow .15s; position: relative; border: 0.5px solid transparent; }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.4); }
-  .card .num { font-size: 10px; font-weight: 500; opacity: .6; margin-bottom: 3px; }
-  .card .label { font-size: 13px; font-weight: 600; line-height: 1.3; }
-  .card .sub { font-size: 11px; margin-top: 4px; opacity: .75; line-height: 1.3; }
-  /* colors */
-  .teal  { background: #0d3340; color: #5eead4; border-color: #1d5360; }
-  .teal .num { color: #2dd4bf; }
-  .purple{ background: #1e1535; color: #c4b5fd; border-color: #3d2d6a; }
-  .purple .num { color: #a78bfa; }
-  .green { background: #0d2b0d; color: #86efac; border-color: #1a4a1a; }
-  .green .num { color: #4ade80; }
-  .amber { background: #2a1e08; color: #fcd34d; border-color: #5a3e18; }
-  .amber .num { color: #fbbf24; }
-  .red   { background: #2d1010; color: #fca5a5; border-color: #5a2020; }
-  .red .sub { color: #f87171; }
-  .diamond-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; width: 170px; }
-  .diamond { width: 60px; height: 60px; background: #2a1e08; border: 1.5px solid #b45309; transform: rotate(45deg); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .diamond-inner { transform: rotate(-45deg); font-size: 9px; color: #fcd34d; text-align: center; font-weight: 600; line-height: 1.2; padding: 2px; }
-  .arrow-down { width: 2px; height: 16px; background: #2d3748; margin: 0 auto; position: relative; }
-  .arrow-down::after { content:''; position:absolute; bottom:-5px; left:-4px; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #2d3748; }
-  .arrow-skip { width: 2px; height: 10px; background: #2d3748; margin: 0 auto; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f5f5f3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 32px 16px 48px; }
+  .page-header { width: 100%; max-width: 980px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  .logo-text { font-size: 22px; font-weight: 700; color: #808285; letter-spacing: .02em; }
+  .logo-text sup { color: #E8732A; font-size: 14px; }
+  .doc-meta { text-align: right; }
+  .doc-meta .doc-code { font-size: 13px; font-weight: 700; color: #E8732A; }
+  .doc-meta .doc-ver  { font-size: 11px; color: #999; margin-top: 2px; }
+  .wrap { background: #1a1a1a; border-radius: 18px; padding: 30px 24px 34px; width: 100%; max-width: 980px; overflow-x: auto; }
+  .title-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+  .title-bar h2 { color: #d0d0d0; font-size: 13px; font-weight: 600; letter-spacing: .05em; opacity: .85; }
+  .title-bar .badge { background: #2a2218; color: #E8732A; font-size: 11px; padding: 2px 9px; border-radius: 20px; border: 0.5px solid #E8732A55; white-space: nowrap; }
+  .hint { font-size: 11px; color: #505050; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 210px); gap: 0 10px; min-width: 880px; }
+  .col-head { text-align: center; margin-bottom: 14px; padding: 8px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+  .ch1 { background: #2e1e0e; color: #E8732A;  border: 0.5px solid #E8732A66; }
+  .ch2 { background: #282828; color: #c8c8c8;  border: 0.5px solid #80828588; }
+  .ch3 { background: #222222; color: #a8a8a8;  border: 0.5px solid #60606088; }
+  .ch4 { background: #201a0a; color: #d09060;  border: 0.5px solid #80582888; }
+  .col { display: flex; flex-direction: column; align-items: center; }
+  .card { width: 200px; border-radius: 10px; padding: 10px 13px; cursor: default; border: 0.5px solid transparent; transition: transform .15s, box-shadow .15s; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,.5); }
+  .card .num   { font-size: 10px; font-weight: 700; margin-bottom: 3px; opacity: .7; }
+  .card .label { font-size: 13px; font-weight: 700; line-height: 1.3; }
+  .card .sub   { font-size: 11px; margin-top: 4px; line-height: 1.3; opacity: .75; }
+  .c-orange { background: #2e1a08; color: #f0975a; border-color: #E8732A55; }
+  .c-orange .num { color: #E8732A; }
+  .c-gray1  { background: #272727; color: #c8c8c8; border-color: #50505088; }
+  .c-gray1  .num { color: #909090; }
+  .c-gray2  { background: #202020; color: #b0b0b0; border-color: #40404088; }
+  .c-gray2  .num { color: #787878; }
+  .c-warm   { background: #261c08; color: #c89858; border-color: #80581888; }
+  .c-warm   .num { color: #b07830; }
+  .c-end    { background: #0e2218; color: #70c890; border-color: #205838; }
+  .c-end    .num { color: #50a870; }
+  .arrow-down { width: 1.5px; height: 16px; background: #404040; margin: 0 auto; position: relative; }
+  .arrow-down::after { content:''; position:absolute; bottom:-5px; left:-4px; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #404040; }
+  .arrow-skip { width: 1.5px; height: 10px; background: #333; margin: 0 auto; }
   .spacer { height: 26px; }
-  .spacer-sm { height: 14px; }
-  .empty { width: 170px; }
-  /* tooltip */
-  .tooltip { display:none; position:fixed; background:#1e2433; color:#e2e8f0; font-size:12px; border-radius:8px; padding:10px 14px; max-width:240px; line-height:1.5; border:0.5px solid #3d4a5a; z-index:100; box-shadow:0 8px 24px rgba(0,0,0,.6); pointer-events:none; }
+  .empty  { width: 200px; }
+  .diamond-wrap { display: flex; flex-direction: column; align-items: center; width: 200px; }
+  .diamond { width: 64px; height: 64px; background: #2a1a06; border: 1.5px solid #E8732A; transform: rotate(45deg); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: default; transition: box-shadow .15s; }
+  .diamond:hover { box-shadow: 0 0 14px #E8732A44; }
+  .diamond-inner { transform: rotate(-45deg); font-size: 9px; color: #f0975a; text-align: center; font-weight: 700; line-height: 1.2; padding: 2px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; align-items: center; }
+  .leg { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #707070; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .leg-dia { width: 10px; height: 10px; transform: rotate(45deg); border-radius: 2px; background: #2a1a06; border: 1.5px solid #E8732A; flex-shrink: 0; }
+  .logo-mark { font-size: 11px; color: #404040; margin-left: auto; letter-spacing: .08em; font-weight: 600; }
+  .tooltip { display:none; position:fixed; background:#111; color:#e8e8e8; font-size:12px; border-radius:8px; padding:10px 14px; max-width:260px; line-height:1.6; border:0.5px solid #E8732A44; z-index:9999; box-shadow:0 8px 24px rgba(0,0,0,.7); pointer-events:none; }
   .tooltip.show { display:block; }
-  .legend { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
-  .leg { display:flex; align-items:center; gap:5px; font-size:11px; color:#94a3b8; }
-  .leg-dot { width:10px; height:10px; border-radius:50%; }
+  .page-footer { width: 100%; max-width: 980px; margin-top: 20px; display: flex; justify-content: space-between; }
+  .page-footer span { font-size: 11px; color: #aaa; }
 </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <svg style="width:28px;height:24px;margin-right:8px;vertical-align:middle" viewBox="0 0 40 34" fill="none">
+      <polygon points="4,30 20,4 36,30" fill="none" stroke="#808285" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="20" cy="25" r="3" fill="#E8732A"/>
+      <line x1="20" y1="25" x2="9" y2="25" stroke="#E8732A" stroke-width="2"/>
+    </svg>
+    <span class="logo-text">PROYECT<span style="color:#E8732A">A</span><sup>3</sup></span>
+  </div>
+  <div class="doc-meta">
+    <div class="doc-code">TCO-PRO-001</div>
+    <div class="doc-ver">Versión 1 · 24/03/2026 · Emmanuel Ramírez</div>
+  </div>
+</div>
 
 <div class="wrap">
   <div class="title-bar">
-    <h2>TCO-PRO-001 · VENTA DE INGENIERÍAS HVAC</h2>
-    <span class="badge">Versión 1 · 24/03/2026</span>
+    <h2>VENTA DE INGENIERÍAS HVAC — DIAGRAMA DE FLUJO</h2>
+    <span class="badge">Gestión Técnico-Comercial</span>
   </div>
+  <div class="hint">Pasa el cursor sobre cada tarjeta o decisión para ver el detalle de la actividad</div>
 
   <div class="grid">
-    <!-- HEADERS -->
-    <div class="col-head c1">CLIENTE</div>
-    <div class="col-head c2">GERENTE COMERCIAL</div>
-    <div class="col-head c3">JEFE DE INGENIERÍA</div>
-    <div class="col-head c4">ADMIN FACTURACIÓN / DIRECTOR</div>
+    <div class="col-head ch1">CLIENTE</div>
+    <div class="col-head ch2">GERENTE COMERCIAL</div>
+    <div class="col-head ch3">JEFE DE INGENIERÍA</div>
+    <div class="col-head ch4">ADMIN FAC. / DIRECTOR</div>
 
-    <!-- ROW 1 -->
+    <!-- 01 -->
     <div class="col">
-      <div class="card teal" onmouseenter="tip(event,'Solicitud recibida vía llamada, correo, visita o canalización de Dirección.')" onmouseleave="hidetip()">
-        <div class="num">01</div>
-        <div class="label">Solicita servicio</div>
-        <div class="sub">Cualquier canal</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-orange" onmouseenter="tip(event,'Solicita el servicio de ingeniería HVAC a través de llamada, correo, visita directa o canalización de Dirección.')" onmouseleave="ht()">
+        <div class="num">01</div><div class="label">Solicita servicio</div><div class="sub">Cualquier canal</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col">
-      <div class="card purple" onmouseenter="tip(event,'Registra en CRM con info básica. Asigna folio de cotización en control de presupuesto y confirma recepción al cliente.')" onmouseleave="hidetip()">
-        <div class="num">01</div>
-        <div class="label">Recibe y registra</div>
-        <div class="sub">CRM + folio cotización</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray1" onmouseenter="tip(event,'Registra la solicitud en el CRM con información básica del cliente. Asigna folio de cotización en el control de presupuesto y confirma recepción al cliente.')" onmouseleave="ht()">
+        <div class="num">01</div><div class="label">Recibe y registra</div><div class="sub">CRM + folio cotización</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col"><div class="spacer"></div></div>
 
-    <!-- ROW 2 -->
+    <!-- 02 presupuesto -->
     <div class="col"><div class="empty"></div><div class="arrow-skip"></div></div>
     <div class="col">
-      <div class="card purple" onmouseenter="tip(event,'Estima costo según dimensiones y tiempo de ejecución. Elabora TCO-FOR-001 Presupuesto y lo envía al cliente. Da seguimiento para fecha de respuesta.')" onmouseleave="hidetip()">
-        <div class="num">02</div>
-        <div class="label">Elabora presupuesto</div>
-        <div class="sub">TCO-FOR-001 → cliente</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray1" onmouseenter="tip(event,'Estima el costo de la ingeniería con base en las dimensiones del inmueble y tiempo estimado de ejecución. Elabora TCO-FOR-001 Presupuesto y lo envía al cliente. Da seguimiento para fecha de respuesta y aclara dudas.')" onmouseleave="ht()">
+        <div class="num">02</div><div class="label">Elabora presupuesto</div><div class="sub">TCO-FOR-001 → cliente</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col"><div class="spacer"></div></div>
 
-    <!-- ROW 3: DECISION -->
+    <!-- DEC 1 autoriza -->
     <div class="col">
-      <div class="diamond-wrap" onmouseenter="tip(event,'El cliente revisa y decide si autoriza el presupuesto. Si no, el Gerente Comercial da seguimiento y aclara dudas.')" onmouseleave="hidetip()">
-        <div class="diamond"><div class="diamond-inner">¿Autoriza presupuesto?</div></div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'El cliente revisa el presupuesto y decide si lo autoriza mediante un pedido. Si no lo autoriza, el Gerente Comercial da seguimiento, aclara dudas y espera nueva respuesta.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Autoriza presupuesto?</div>
+        </div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col"><div class="spacer"></div></div>
 
-    <!-- ROW 4 -->
+    <!-- 03 confirma venta -->
     <div class="col"><div class="empty"></div><div class="arrow-skip"></div></div>
     <div class="col">
-      <div class="card purple" onmouseenter="tip(event,'Registra venta como &quot;ganada&quot; en CRM. Solicita al Administrador el cobro del 50% como anticipo para autorizar la elaboración.')" onmouseleave="hidetip()">
-        <div class="num">03</div>
-        <div class="label">Confirma venta</div>
-        <div class="sub">Registra "ganada" en CRM</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray1" onmouseenter="tip(event,'Registra la venta como &quot;Ganada&quot; en el CRM. Solicita al Administrador de Facturación el cobro del 50% de anticipo para autorizar el inicio de la ingeniería.')" onmouseleave="ht()">
+        <div class="num">03</div><div class="label">Confirma venta</div><div class="sub">CRM → "Ganada"</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col">
-      <div class="card amber" onmouseenter="tip(event,'Gestiona el cobro del anticipo del 50% para autorizar el inicio de la ingeniería.')" onmouseleave="hidetip()">
-        <div class="num">03</div>
-        <div class="label">Cobra anticipo 50%</div>
-        <div class="sub">Habilitador para iniciar</div>
+      <div class="card c-warm" onmouseenter="tip(event,'Gestiona el cobro del anticipo del 50%. Este pago es el habilitador para que el Gerente Comercial autorice el inicio de la ingeniería al Jefe de Ingeniería.')" onmouseleave="ht()">
+        <div class="num">03</div><div class="label">Cobra anticipo 50%</div><div class="sub">Habilita la ingeniería</div>
       </div>
     </div>
 
-    <!-- ROW 5 -->
+    <!-- 04 info técnica -->
     <div class="col">
-      <div class="card teal" onmouseenter="tip(event,'Proporciona planos arquitectónicos, elevaciones, orientación geográfica, materiales constructivos, fuentes de calor internas y restricciones de espacio.')" onmouseleave="hidetip()">
-        <div class="num">04</div>
-        <div class="label">Entrega info técnica</div>
-        <div class="sub">Planos, materiales, sitio</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-orange" onmouseenter="tip(event,'Para AC: planos arquitectónicos, elevaciones, orientación geográfica, materiales de construcción, fuentes de calor internas, tipo de suministro eléctrico y restricciones de espacio. Para ventilación: planos, elevaciones, filtración de aire, especificaciones de presión y renovaciones de aire.')" onmouseleave="ht()">
+        <div class="num">04</div><div class="label">Entrega info técnica</div><div class="sub">AC o ventilación</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col">
-      <div class="card purple" onmouseenter="tip(event,'Solicita planos, elevaciones, orientación, materiales, fuentes de calor y restricciones. Si es necesario, agenda visita de levantamiento en sitio.')" onmouseleave="hidetip()">
-        <div class="num">04</div>
-        <div class="label">Solicita info técnica</div>
-        <div class="sub">Levantamiento si aplica</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray1" onmouseenter="tip(event,'Solicita al cliente la información técnica según el tipo de ingeniería (AC o ventilación). Si es necesario, agenda visita para levantamiento técnico en sitio.')" onmouseleave="ht()">
+        <div class="num">04</div><div class="label">Solicita info técnica</div><div class="sub">Levantamiento si aplica</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col"><div class="arrow-skip"></div></div>
 
-    <!-- ROW 6: DECISION pago -->
+    <!-- DEC 2 pago -->
     <div class="col"><div class="spacer"></div></div>
     <div class="col">
-      <div class="diamond-wrap" onmouseenter="tip(event,'Si no se requiere pago de ingeniería, debe ser aprobado por el Director General antes de continuar.')" onmouseleave="hidetip()">
-        <div class="diamond"><div class="diamond-inner">¿Requiere pago?</div></div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'Si NO se requiere pago de ingeniería HVAC, el Director General debe aprobar la excepción antes de continuar. Una vez cobrado el anticipo y recopilada la info, el Gerente Comercial solicita al Jefe de Ingeniería iniciar los cálculos.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Requiere pago?</div>
+        </div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col">
-      <div class="card amber" onmouseenter="tip(event,'Solo aplica si NO se requiere pago. El Director General debe aprobar la excepción antes de continuar con la ingeniería.')" onmouseleave="hidetip()">
-        <div class="num">–</div>
-        <div class="label">Aprueba excepción</div>
-        <div class="sub">Director General</div>
+      <div class="card c-warm" onmouseenter="tip(event,'Solo aplica cuando NO se requiere cobro. El Director General debe aprobar esta excepción antes de que el Gerente Comercial autorice al Jefe de Ingeniería a iniciar.')" onmouseleave="ht()">
+        <div class="num">—</div><div class="label">Aprueba excepción</div><div class="sub">Director General</div>
       </div>
     </div>
 
-    <!-- ROW 7 -->
+    <!-- 05 cálculos -->
     <div class="col"><div class="spacer"></div></div>
     <div class="col">
-      <div class="card purple" onmouseenter="tip(event,'Calcula cargas térmicas (BTU/h o Ton. Refrigeración) usando software HAP. Selecciona tipo de sistema (Split, VRF, Chiller, etc.) y dimensiona equipos.')" onmouseleave="hidetip()">
-        <div class="num">05</div>
-        <div class="label">Calcula cargas térmicas</div>
-        <div class="sub">HAP + selección sistema</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray1" onmouseenter="tip(event,'Con la información recopilada y el anticipo cobrado, solicita al Jefe de Ingeniería realizar los cálculos necesarios según el tipo de ingeniería (AC o ventilación).')" onmouseleave="ht()">
+        <div class="num">05</div><div class="label">Solicita cálculos</div><div class="sub">Al Jefe de Ingeniería</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col">
-      <div class="card green" onmouseenter="tip(event,'Calcula flujo de aire (CFM) según requerimientos de ventilación. Determina cantidad de louvers/persianas. Apoya en diseño del sistema.')" onmouseleave="hidetip()">
-        <div class="num">05</div>
-        <div class="label">Calcula CFM</div>
-        <div class="sub">Ventilación y louvers</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray2" onmouseenter="tip(event,'Para AC: calcula potencia térmica con software HAP considerando ocupación, equipos, iluminación, orientación y materiales. Para ventilación: calcula flujo de aire (CFM) y determina cantidad de louvers o persianas.')" onmouseleave="ht()">
+        <div class="num">05</div><div class="label">Calcula cargas / CFM</div><div class="sub">HAP + ventilación</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div></div>
 
-    <!-- ROW 8 -->
+    <!-- 06 selección sistema -->
+    <div class="col"><div class="spacer"></div></div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col">
-      <div class="card purple" onmouseenter="tip(event,'Define distribución de ductos, difusores, rejillas y ubicación de equipos considerando restricciones del sitio.')" onmouseleave="hidetip()">
-        <div class="num">06</div>
-        <div class="label">Define distribución</div>
-        <div class="sub">Ductos, difusores, equipos</div>
-      </div>
-      <div class="arrow-down"></div>
-    </div>
-    <div class="col">
-      <div class="card green" onmouseenter="tip(event,'Genera planos preliminares con la distribución del sistema HVAC. Los envía al cliente para validación. Realiza ajustes si son requeridos.')" onmouseleave="hidetip()">
-        <div class="num">06</div>
-        <div class="label">Genera planos preliminares</div>
-        <div class="sub">Envía a cliente</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray2" onmouseenter="tip(event,'Selecciona el tipo de sistema adecuado (Split, VRF, Chiller, Manejadora, etc.). Dimensiona equipos según potencia térmica y CFM requeridos. Define distribución de ductos, difusores y rejillas. Ubica equipos considerando restricciones del sitio en borradores del plano.')" onmouseleave="ht()">
+        <div class="num">06</div><div class="label">Selecciona sistema</div><div class="sub">Dimensiona y distribuye</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div></div>
 
-    <!-- ROW 9: DECISION planos -->
+    <!-- 07 planos preliminares -->
+    <div class="col"><div class="spacer"></div></div>
+    <div class="col"><div class="spacer"></div></div>
     <div class="col">
-      <div class="diamond-wrap" onmouseenter="tip(event,'El cliente revisa los planos preliminares. Si solicita cambios, se regresa a ajustes antes de continuar.')" onmouseleave="hidetip()">
-        <div class="diamond"><div class="diamond-inner">¿Valida planos?</div></div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray2" onmouseenter="tip(event,'Genera planos preliminares con la distribución del sistema HVAC definida y los envía al cliente para validación. Realiza los ajustes necesarios hasta llegar a la Revisión 0.')" onmouseleave="ht()">
+        <div class="num">07</div><div class="label">Genera planos preliminares</div><div class="sub">Envía a cliente</div>
+      </div><div class="arrow-down"></div>
+    </div>
+    <div class="col"><div class="spacer"></div></div>
+
+    <!-- DEC 3 valida planos -->
+    <div class="col">
+      <div class="diamond-wrap">
+        <div class="diamond" onmouseenter="tip(event,'El cliente revisa los planos preliminares. Si solicita cambios, el Jefe de Ingeniería realiza ajustes hasta alcanzar la Revisión 0 aprobada.')" onmouseleave="ht()">
+          <div class="diamond-inner">¿Valida planos? (Rev. 0)</div>
+        </div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
     <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
     <div class="col"><div class="spacer"></div></div>
 
-    <!-- ROW 10 -->
+    <!-- 08 catálogo y memoria -->
+    <div class="col"><div class="empty"></div></div>
     <div class="col"><div class="empty"></div></div>
     <div class="col">
-      <div class="card purple" onmouseenter="tip(event,'Elabora TCO-FOR-006 Catálogo de conceptos: instalaciones, equipos y materiales para implementar la ingeniería.')" onmouseleave="hidetip()">
-        <div class="num">07</div>
-        <div class="label">Catálogo de conceptos</div>
-        <div class="sub">TCO-FOR-006</div>
-      </div>
-      <div class="arrow-down"></div>
-    </div>
-    <div class="col">
-      <div class="card green" onmouseenter="tip(event,'Elabora TCO-FOR-007 Memoria descriptiva: especifica flujo de aire por área, criterios de selección de equipos y especificaciones técnicas.')" onmouseleave="hidetip()">
-        <div class="num">07</div>
-        <div class="label">Memoria descriptiva</div>
-        <div class="sub">TCO-FOR-007</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray2" onmouseenter="tip(event,'Elabora TCO-FOR-006 Catálogo de conceptos: instalaciones, equipos y materiales requeridos para implementar la ingeniería. Elabora TCO-FOR-007 Memoria descriptiva: consideraciones del diseño, flujo de aire por área y especificaciones técnicas.')" onmouseleave="ht()">
+        <div class="num">08</div><div class="label">Catálogo y memoria</div><div class="sub">TCO-FOR-006 y FOR-007</div>
+      </div><div class="arrow-down"></div>
     </div>
     <div class="col"><div class="spacer"></div></div>
 
-    <!-- ROW 11 -->
+    <!-- 09 envío ingeniería -->
+    <div class="col"><div class="spacer"></div></div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col">
-      <div class="card purple" onmouseenter="tip(event,'Envía la propuesta de ingeniería completa al cliente por correo electrónico para su revisión y aprobación formal.')" onmouseleave="hidetip()">
-        <div class="num">08</div>
-        <div class="label">Envía ingeniería</div>
-        <div class="sub">Correo electrónico</div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-gray2" onmouseenter="tip(event,'Envía la propuesta de ingeniería completa (planos Revisión 0, catálogo de conceptos y memoria descriptiva) al cliente Y al Gerente Comercial por correo electrónico.')" onmouseleave="ht()">
+        <div class="num">09</div><div class="label">Envía ingeniería</div><div class="sub">A cliente y Ger. Comercial</div>
+      </div><div class="arrow-down"></div>
     </div>
-    <div class="col"><div class="spacer"></div></div>
     <div class="col"><div class="spacer"></div></div>
 
-    <!-- ROW 12: DECISION cambios -->
+    <!-- 10 confirmación cliente -->
     <div class="col">
-      <div class="diamond-wrap" onmouseenter="tip(event,'El cliente revisa la ingeniería completa. Si solicita cambios, se realizan ajustes necesarios y se reenvía hasta obtener autorización.')" onmouseleave="hidetip()">
-        <div class="diamond"><div class="diamond-inner">¿Solicita cambios?</div></div>
-      </div>
-      <div class="arrow-down"></div>
+      <div class="card c-orange" onmouseenter="tip(event,'Confirma la recepción de la documentación completa de la ingeniería HVAC. Con esto concluye la entrega del servicio de ingeniería.')" onmouseleave="ht()">
+        <div class="num">10</div><div class="label">Confirma recepción</div><div class="sub">Documentación HVAC</div>
+      </div><div class="arrow-down"></div>
     </div>
-    <div class="col"><div class="spacer"></div><div class="arrow-skip"></div></div>
+    <div class="col">
+      <div class="card c-gray1" onmouseenter="tip(event,'Recibe copia de la ingeniería enviada por el Jefe de Ingeniería. Solicita al departamento de Administración el cobro del saldo restante de la ingeniería.')" onmouseleave="ht()">
+        <div class="num">10</div><div class="label">Solicita saldo restante</div><div class="sub">Al Admin. de Facturación</div>
+      </div><div class="arrow-down"></div>
+    </div>
     <div class="col"><div class="spacer"></div></div>
-    <div class="col"><div class="spacer"></div></div>
+    <div class="col">
+      <div class="card c-warm" onmouseenter="tip(event,'Gestiona el cobro del saldo restante de la ingeniería una vez que el cliente ha confirmado la recepción de la documentación final.')" onmouseleave="ht()">
+        <div class="num">10</div><div class="label">Cobra saldo restante</div><div class="sub">Cierre financiero</div>
+      </div><div class="arrow-down"></div>
+    </div>
 
-    <!-- ROW 13 FINAL -->
-    <div class="col"><div class="empty"></div></div>
+    <!-- FIN -->
     <div class="col">
-      <div class="card green" onmouseenter="tip(event,'Entrega documentación final de Ingeniería HVAC al cliente. Concluye el servicio de ingeniería. Solicita cobro del saldo restante al Administrador.')" onmouseleave="hidetip()">
-        <div class="num">09</div>
-        <div class="label">Entrega documentación</div>
-        <div class="sub">Fin del servicio HVAC</div>
+      <div class="card c-end" onmouseenter="tip(event,'El cliente ha confirmado la recepción y el saldo ha sido cobrado. Concluye el servicio de Ingeniería HVAC — TCO-PRO-001.')" onmouseleave="ht()">
+        <div class="num">11</div><div class="label">Servicio concluido</div><div class="sub">Fin del procedimiento</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card c-end" onmouseenter="tip(event,'Concluye el procedimiento de Venta de Ingenierías HVAC.')" onmouseleave="ht()">
+        <div class="num">11</div><div class="label">Procedimiento cerrado</div><div class="sub">Fin</div>
       </div>
     </div>
     <div class="col"><div class="spacer"></div></div>
     <div class="col">
-      <div class="card amber" onmouseenter="tip(event,'Gestiona el cobro del saldo restante de la ingeniería una vez entregada y aceptada la documentación final.')" onmouseleave="hidetip()">
-        <div class="num">09</div>
-        <div class="label">Cobra saldo restante</div>
-        <div class="sub">Cierre financiero</div>
+      <div class="card c-end" onmouseenter="tip(event,'Cierre financiero completo. Anticipo y saldo restante cobrados. Fin del procedimiento.')" onmouseleave="ht()">
+        <div class="num">11</div><div class="label">Cobro completado</div><div class="sub">Fin</div>
       </div>
     </div>
   </div>
 
   <div class="legend">
-    <div class="leg"><div class="leg-dot" style="background:#5eead4"></div>Cliente</div>
-    <div class="leg"><div class="leg-dot" style="background:#a78bfa"></div>Gerente Comercial</div>
-    <div class="leg"><div class="leg-dot" style="background:#86efac"></div>Jefe de Ingeniería</div>
-    <div class="leg"><div class="leg-dot" style="background:#fbbf24"></div>Admin Facturación / Director</div>
-    <div class="leg"><div class="leg-dot" style="background:#b45309; transform:rotate(45deg); border-radius:2px"></div>Decisión</div>
-    <div style="margin-left:auto; font-size:11px; color:#4a5568;">Pasa el cursor sobre cada tarjeta para ver el detalle</div>
+    <div class="leg"><div class="leg-dot" style="background:#E8732A"></div>Cliente</div>
+    <div class="leg"><div class="leg-dot" style="background:#808285"></div>Gerente Comercial</div>
+    <div class="leg"><div class="leg-dot" style="background:#606060"></div>Jefe de Ingeniería</div>
+    <div class="leg"><div class="leg-dot" style="background:#b07830"></div>Admin Fac. / Director</div>
+    <div class="leg"><div class="leg-dia"></div>Decisión</div>
+    <div class="leg"><div class="leg-dot" style="background:#50a870"></div>Fin de proceso</div>
+    <div class="logo-mark">PROYECTA³</div>
   </div>
 </div>
 
-<div class="tooltip" id="tt"></div>
+<div class="page-footer">
+  <span>TCO-PRO-001 · Gestión Técnico-Comercial · Proyecta³</span>
+  <span>v1 · 24/03/2026</span>
+</div>
 
+<div class="tooltip" id="tt"></div>
 <script>
   function tip(e, text) {
     const t = document.getElementById('tt');
-    t.textContent = text;
+    t.innerHTML = text;
     t.classList.add('show');
-    move(e);
-    document.addEventListener('mousemove', move);
+    mv(e);
+    document.addEventListener('mousemove', mv);
   }
-  function move(e) {
+  function mv(e) {
     const t = document.getElementById('tt');
     let x = e.clientX + 14, y = e.clientY - 10;
-    if (x + 255 > window.innerWidth) x = e.clientX - 255;
-    if (y + 80 > window.innerHeight) y = e.clientY - 80;
-    t.style.left = x + 'px';
-    t.style.top = y + 'px';
+    if (x + 270 > window.innerWidth) x = e.clientX - 270;
+    if (y + 110 > window.innerHeight) y = e.clientY - 110;
+    t.style.left = x + 'px'; t.style.top = y + 'px';
   }
-  function hidetip() {
+  function ht() {
     const t = document.getElementById('tt');
     t.classList.remove('show');
-    document.removeEventListener('mousemove', move);
+    document.removeEventListener('mousemove', mv);
   }
 </script>
+</body>
+</html>
